@@ -1,0 +1,80 @@
+name: {{cookiecutter.projectName}}
+options:
+  xcodeVersion: 12.0
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    DEVELOPMENT_TEAM: {{cookiecutter.teamId}}
+    SWIFT_VERSION: "5.1"
+  configs:
+    Debug:
+      SWIFT_COMPILATION_MODE: "incremental"
+    Release:
+      SWIFT_COMPILATION_MODE: "wholemodule"
+attributes:
+  ORGANIZATIONNAME: {{cookiecutter.teamName}}
+packages:
+  SwiftGen:
+    url: https://github.com/SwiftGen/SwiftGen.git
+    majorVersion: "6.4.0"
+targets:
+  {{cookiecutter.projectName}}:
+    type: application
+    platform: iOS
+    deploymentTarget: "{{cookiecutter.deploymentTarget}}"
+    configFiles:
+      Debug: {{cookiecutter.projectName}}/SupportingFiles/Configurations/Debug.xcconfig
+      Release: {{cookiecutter.projectName}}/SupportingFiles/Configurations/Release.xcconfig
+    settings:
+      base:
+        PRODUCT_NAME: {{cookiecutter.projectName}}
+        MARKETING_VERSION: 1.0
+        CURRENT_PROJECT_VERSION: 1
+    info:
+      path: {{cookiecutter.projectName}}/SupportingFiles/Info.plist
+      properties:
+        CFBundleDisplayName: {{cookiecutter.projectName}}$(APP_NAME_SUFFIX)
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UILaunchStoryboardName: LaunchScreen
+        UIMainStoryboardFile: Main
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: "Default Configuration"
+                UISceneDelegateClassName: "$(PRODUCT_MODULE_NAME).SceneDelegate"
+                UISceneStoryboardFile: Main
+        UIRequiredDeviceCapabilities: [armv7]
+        ITSAppUsesNonExemptEncryption: NO
+        LSRequiresIPhoneOS: YES
+        _Configuration: $(CONFIGURATION)
+        _ServerEnvironment: $(SERVER_ENVIRONMENT)
+    sources: 
+      - {{cookiecutter.projectName}}
+    postCompileScripts:
+      - script: |
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+        name: SwiftLint
+schemes:
+  {{cookiecutter.projectName}}:
+    build:
+      targets:
+        {{cookiecutter.projectName}}: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release

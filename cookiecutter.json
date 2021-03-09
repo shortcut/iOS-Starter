@@ -1,0 +1,10 @@
+{
+  "projectName": "Example",
+  "projectDirectory": "{{cookiecutter.projectName|lower|replace(' ', '-')}}-ios",
+  "teamId": "DLFLF8ZQDD",
+  "teamName": "Shortcut AS",
+  "bundleIdentifier": "io.shortcut.{{cookiecutter.projectName|lower|replace(' ', '-')}}",
+  "deploymentTarget": "13.0",
+  "defaultLanguageCode": "en",
+  "runXcodeGen": "y"
+}

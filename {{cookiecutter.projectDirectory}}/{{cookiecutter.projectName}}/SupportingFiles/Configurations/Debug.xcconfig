@@ -1,0 +1,4 @@
+PRODUCT_BUNDLE_IDENTIFIER = {{cookiecutter.bundleIdentifier}}-dev
+SERVER_ENVIRONMENT = debug
+SERVER_ENVIRONMENT_SUFFIX = -debug
+APP_NAME_SUFFIX = -Dev
